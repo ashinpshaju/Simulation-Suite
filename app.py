@@ -21,19 +21,15 @@ st.set_page_config(page_title="Multi-Simulation Suite with ML", layout="wide")
 st.title("🔬 Multi-Simulation Suite with ML Prediction")
 st.write("""
 This platform includes three simulations:
-1. Epidemic Spread (SIR Model)
-2. Traffic Flow (Cellular Automaton)
-3. Forest Fire Spread (Grid CA)
-
 The **ML Prediction** tab predicts future outcomes using Random Forest and Gradient Boosting models.
 """)
 
 # --------------------- TABS ---------------------
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🦠 Epidemic Simulation",
-    "🚗 Traffic Simulation",
-    "🔥 Forest Fire Simulation",
-    "🔮 ML Prediction"
+    "Epidemic Simulation",
+    "Traffic Simulation",
+    "Forest Fire Simulation",
+    "ML Prediction"
 ])
 
 # --------------------- GLOBAL DATA STORAGE ---------------------
@@ -59,7 +55,7 @@ def run_sir_simulation(N, I0, beta, gamma, days):
     return S, I, R, pd.DataFrame(data, columns=["day","susceptible","infected","recovered"])
 
 with tab1:
-    st.header("🦠 Epidemic Spread Simulation (SIR Model)")
+    st.header("Epidemic Spread Simulation (SIR Model)")
     col1, col2 = st.columns(2)
     with col1:
         population = st.slider("Total Population", 100, 10000, 1000, key="sir_pop")
@@ -120,7 +116,7 @@ def run_traffic_simulation(L, num_cars, vmax, p_slow, steps):
     return np.array(history), df
 
 with tab2:
-    st.header("🚗 Traffic Flow Simulation (Cellular Automaton)")
+    st.header("Traffic Flow Simulation (Cellular Automaton)")
     col1, col2 = st.columns(2)
     with col1:
         road_length = st.slider("Road Length", 20, 200, 50, key="traffic_length")
@@ -174,7 +170,7 @@ def run_forest_simulation(size, steps, p_grow, p_lightning):
     return np.array(history), df
 
 with tab3:
-    st.header("🔥 Forest Fire Spread Simulation")
+    st.header("Forest Fire Spread Simulation")
     col1, col2 = st.columns(2)
     with col1:
         size = st.slider("Forest Size", 20, 150, 50, key="forest_size")
@@ -197,7 +193,7 @@ with tab3:
 
 # --------------------- 4. ML PREDICTION TAB ---------------------
 with tab4:
-    st.header("🔮 ML Prediction (Random Forest & Gradient Boosting)")
+    st.header("ML Prediction (Random Forest & Gradient Boosting)")
     ml_choice = st.radio("Select Dataset for Prediction", ["Epidemic","Traffic","Forest Fire","Combined"])
     if ml_choice=="Epidemic" and not sim_data["epidemic"].empty:
         df = sim_data["epidemic"].copy()
@@ -245,11 +241,11 @@ with tab4:
                 "MSE":[mean_squared_error(y,pred_rf), mean_squared_error(y,pred_gb)],
                 "R2":[r2_score(y,pred_rf), r2_score(y,pred_gb)]
             })
-            st.subheader("📊 Model Error Metrics")
+            st.subheader("Model Error Metrics")
             st.table(metrics_df)
 
             # Feature importance
-            st.subheader("🌟 Feature Importance")
+            st.subheader("Feature Importance")
             fig, ax = plt.subplots(figsize=(8,4))
             if ml_choice=="Combined":
                 features = X.columns
@@ -261,7 +257,7 @@ with tab4:
             st.pyplot(fig)
 
             # Prediction plot
-            st.subheader("📈 Predictions vs Actual")
+            st.subheader("Predictions vs Actual")
             fig2, ax2 = plt.subplots(figsize=(12,5))
             ax2.plot(y.values, label="Actual", color="black")
             ax2.plot(pred_rf, label="RF Prediction", color="red")
