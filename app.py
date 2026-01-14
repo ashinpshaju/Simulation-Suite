@@ -18,7 +18,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 st.set_page_config(page_title="Multi-Simulation Suite with ML", layout="wide")
 
 # --------------------- LANDING PAGE ---------------------
-st.title("🔬 Multi-Simulation Suite with ML Prediction")
+st.title("Multi-Simulation Suite with ML Prediction")
 st.write("""
 This platform includes three simulations:
 The **ML Prediction** tab predicts future outcomes using Random Forest and Gradient Boosting models.
